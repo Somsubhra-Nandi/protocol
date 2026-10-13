@@ -1,4 +1,3 @@
-import { URL } from 'url';
 import { ProtocolError } from './protocol';
 
 interface Request {
@@ -21,11 +20,13 @@ export default async (
 		request['g-recaptcha-response'] = 'empty'; // TODO: Review the captcha
 	}
 
+	const url = new URL(baseURL);
+
 	const res = await fetch(baseURL + '/login', {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json, text/plain, */*',
-			Host: new URL(baseURL).host,
+			Host: url.host,
 			Origin: baseURL,
 			'Content-Type': 'application/json'
 		},
